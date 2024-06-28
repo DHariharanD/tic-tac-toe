@@ -3,7 +3,7 @@
 #define SIZE 3
 
 // Function to print the Tic Tac Toe board
-void printBoard(char board[SIZE][SIZE]){
+void printBoard(char board[SIZE][SIZE]) {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             printf(" %c ", board[i][j]);
@@ -49,6 +49,7 @@ int main() {
     char board[SIZE][SIZE];
     int player = 1;
     int row, col;
+    int moves = 0; // Add a move counter
 
     // Initialize the board with empty spaces
     for (int i = 0; i < SIZE; i++) {
@@ -64,22 +65,23 @@ int main() {
         scanf("%d%d", &row, &col);
         row--;
         col--;
-        if (board[row][col] != '-') {
+        if (board[row][col]!= '-') {
             printf("That space is already taken. Try again.\n");
             continue;
         }
-        board[row][col] = player == 1 ? 'X' : 'O';
-        if (checkWin(board, player == 1 ? 'X' : 'O')) {
+        board[row][col] = player == 1? 'X' : 'O';
+        moves++; // Increment the move counter
+
+        if (checkWin(board, player == 1? 'X' : 'O')) {
             printBoard(board);
             printf("Player %d wins!\n", player);
             break;
-        }
-        if (checkWin(board, 'T')) {
+        } else if (moves >= 9) { // Check if the board is full
             printBoard(board);
-            printf("It's a tie!\n");
+            printf("It's a draw!\n");
             break;
         }
-        player = player == 1 ? 2 : 1;
+        player = player == 1? 2 : 1;
     }
 
     return 0;
